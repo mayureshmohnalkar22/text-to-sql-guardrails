@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-template}
+      OLLAMA_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
+    volumes: ["sql-data:/app/data"]
+  dashboard:
+    build: .
+    command: streamlit run app/dashboard.py --server.address 0.0.0.0
+    ports: ["8501:8501"]
+    environment:
+      API_URL: http://api:8000
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-template}
+    depends_on: [api]
+volumes:
+  sql-data:

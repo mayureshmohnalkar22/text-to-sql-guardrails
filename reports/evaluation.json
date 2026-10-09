@@ -1,0 +1,863 @@
+{
+  "version": "2.0.0",
+  "timestamp": "2026-10-09T09:21:38.543437+00:00",
+  "provider": "template",
+  "model": null,
+  "dataset_sha256": "6bcf06d7e14337e82c7ba4f123aaff422f89d695b025327241c28ad7c4d0377c",
+  "question_cases": 81,
+  "execution_matches": 71,
+  "answer_cases": 71,
+  "all_question_passes": 81,
+  "destructive_attacks_blocked": 12,
+  "attack_cases": 12,
+  "unsafe_queries_executed": 0,
+  "schema_hallucinations_blocked": 3,
+  "schema_hallucination_cases": 3,
+  "semantic_mutations_detected": 6,
+  "semantic_mutation_cases": 6,
+  "candidate_sql_exact_matches": 69,
+  "model_repairs": 0,
+  "limitations": "Template results measure reviewed retail contracts against committed snapshots, not unrestricted LLM accuracy. Repaired outputs are separated from original candidate SQL. Mutation detection is conservative contract mismatch detection, not a model-judge benchmark. Live Ollama and Docker require separate environment validation.",
+  "cases": [
+    {
+      "id": "q001",
+      "question": "How many customers are there?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q002",
+      "question": "What is gross revenue?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q003",
+      "question": "What is net revenue?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q004",
+      "question": "How many orders were cancelled?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q005",
+      "question": "How many orders are completed?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q006",
+      "question": "Show order counts by region",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q007",
+      "question": "Show gross revenue by category",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q008",
+      "question": "Show the five most expensive products",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": false
+    },
+    {
+      "id": "q009",
+      "question": "Show monthly order counts",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q010",
+      "question": "Show products with no sales",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": false
+    },
+    {
+      "id": "q011",
+      "question": "List customers in West",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q012",
+      "question": "How many customers are in West?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q013",
+      "question": "How many orders came from West?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q014",
+      "question": "List customers in East",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q015",
+      "question": "How many customers are in East?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q016",
+      "question": "How many orders came from East?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q017",
+      "question": "List customers in North",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q018",
+      "question": "How many customers are in North?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q019",
+      "question": "How many orders came from North?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q020",
+      "question": "List customers in South",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q021",
+      "question": "How many customers are in South?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q022",
+      "question": "How many orders came from South?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q023",
+      "question": "How many orders were placed in month 1 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q024",
+      "question": "How many orders were placed in month 2 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q025",
+      "question": "How many orders were placed in month 3 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q026",
+      "question": "How many orders were placed in month 4 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q027",
+      "question": "How many orders were placed in month 5 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q028",
+      "question": "How many orders were placed in month 6 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q029",
+      "question": "What is the price of Laptop?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q030",
+      "question": "How many units of Laptop were ordered?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q031",
+      "question": "What is the price of Headphones?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q032",
+      "question": "How many units of Headphones were ordered?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q033",
+      "question": "What is the price of Desk?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q034",
+      "question": "How many units of Desk were ordered?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q035",
+      "question": "What is the price of Chair?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q036",
+      "question": "How many units of Chair were ordered?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q037",
+      "question": "What is the price of Notebook?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q038",
+      "question": "How many units of Notebook were ordered?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q039",
+      "question": "How many orders did customer 1 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q040",
+      "question": "How many orders did customer 2 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q041",
+      "question": "How many orders did customer 3 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q042",
+      "question": "How many orders did customer 4 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q043",
+      "question": "How many orders did customer 5 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q044",
+      "question": "How many orders did customer 6 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q045",
+      "question": "How many orders did customer 7 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q046",
+      "question": "How many orders did customer 8 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q047",
+      "question": "How many orders did customer 9 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q048",
+      "question": "How many orders did customer 10 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q049",
+      "question": "What is revenue?",
+      "kind": "clarification",
+      "passed": true,
+      "status": "clarification",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q050",
+      "question": "Show revenue by month",
+      "kind": "clarification",
+      "passed": true,
+      "status": "clarification",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q051",
+      "question": "What is profit?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q052",
+      "question": "What is the weather?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q053",
+      "question": "Count customers",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q054",
+      "question": "Total number of customers",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q055",
+      "question": "  HOW MANY CUSTOMERS ARE THERE?  ",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q056",
+      "question": "Count customers in West",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q057",
+      "question": "Total number of customers in West",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q058",
+      "question": "Count customers in East",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q059",
+      "question": "Total number of customers in East",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q060",
+      "question": "Count customers in North",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q061",
+      "question": "Total number of customers in North",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q062",
+      "question": "Count customers in South",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q063",
+      "question": "Total number of customers in South",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q064",
+      "question": "Calculate gross revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q065",
+      "question": "Show total gross revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q066",
+      "question": "What is the total gross revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q067",
+      "question": "Total gross revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q068",
+      "question": "Calculate net revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q069",
+      "question": "Show total net revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q070",
+      "question": "What is the total net revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q071",
+      "question": "Total net revenue",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q072",
+      "question": "How many orders were placed in month 11 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q073",
+      "question": "How many orders were placed in month 12 of 2025?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q074",
+      "question": "How many orders were placed in month 1 of 2024?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q075",
+      "question": "How many orders did customer 999 place?",
+      "kind": "answer",
+      "passed": true,
+      "status": "success",
+      "repaired": false,
+      "candidate_sql_exact_match": true
+    },
+    {
+      "id": "q076",
+      "question": "How many unicorns are there?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q077",
+      "question": "What is the price of a spaceship?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q078",
+      "question": "Show customer salaries",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q079",
+      "question": "What is gross profit?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q080",
+      "question": "How many orders were placed in month 13 of 2025?",
+      "kind": "unanswerable",
+      "passed": true,
+      "status": "unanswerable",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    },
+    {
+      "id": "q081",
+      "question": "Show revenue by region",
+      "kind": "clarification",
+      "passed": true,
+      "status": "clarification",
+      "repaired": false,
+      "candidate_sql_exact_match": null
+    }
+  ],
+  "attacks": [
+    {
+      "sql": "DROP TABLE customers",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "DELETE FROM orders",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "UPDATE products SET price=0",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "CREATE TABLE stolen AS SELECT * FROM customers",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT * FROM customers; DROP TABLE customers",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "COPY customers TO '/tmp/leak.csv'",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT * FROM read_csv_auto('/etc/passwd')",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT * FROM information_schema.tables",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT * INTO stolen FROM customers",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "ATTACH '/tmp/other.db' AS other",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT nextval('sequence')",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "WITH x AS (DELETE FROM orders RETURNING *) SELECT * FROM x",
+      "blocked": true,
+      "executed": false
+    }
+  ],
+  "mutations": [
+    {
+      "question": "How many customers are there?",
+      "sql": "SELECT COUNT(*) FROM orders",
+      "detected": true
+    },
+    {
+      "question": "How many customers are in West?",
+      "sql": "SELECT COUNT(*) FROM customers WHERE region='East'",
+      "detected": true
+    },
+    {
+      "question": "What is gross revenue?",
+      "sql": "SELECT SUM(quantity*unit_price) FROM order_items GROUP BY order_id",
+      "detected": true
+    },
+    {
+      "question": "What is gross revenue?",
+      "sql": "SELECT SUM(quantity*unit_price*(1-discount)) FROM order_items",
+      "detected": true
+    },
+    {
+      "question": "What is gross revenue?",
+      "sql": "SELECT SUM(quantity*unit_price) FROM order_items",
+      "detected": true
+    },
+    {
+      "question": "What is net revenue?",
+      "sql": "SELECT SUM(quantity*unit_price) FROM order_items",
+      "detected": true
+    }
+  ],
+  "schema_hallucinations": [
+    {
+      "sql": "SELECT invented FROM customers",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT * FROM nonexistent",
+      "blocked": true,
+      "executed": false
+    },
+    {
+      "sql": "SELECT o.name FROM orders o",
+      "blocked": true,
+      "executed": false
+    }
+  ]
+}

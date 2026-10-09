@@ -1,0 +1,975 @@
+[
+  {
+    "id": "q001",
+    "kind": "answer",
+    "question": "How many customers are there?",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "alternative": "SELECT SUM(1) AS customer_count FROM customers",
+    "expected_rows": [
+      {
+        "customer_count": 20
+      }
+    ]
+  },
+  {
+    "id": "q002",
+    "kind": "answer",
+    "question": "What is gross revenue?",
+    "sql": "SELECT SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "alternative": "SELECT SUM(amount) AS gross_revenue FROM (SELECT order_id,SUM(quantity*unit_price) AS amount FROM order_items GROUP BY order_id) i WHERE order_id IN (SELECT id FROM orders WHERE status='completed')",
+    "expected_rows": [
+      {
+        "gross_revenue": 85120.0
+      }
+    ]
+  },
+  {
+    "id": "q003",
+    "kind": "answer",
+    "question": "What is net revenue?",
+    "sql": "SELECT SUM(i.quantity*i.unit_price*(1-i.discount)) AS net_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "net_revenue": 83322.0
+      }
+    ]
+  },
+  {
+    "id": "q004",
+    "kind": "answer",
+    "question": "How many orders were cancelled?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE status='cancelled'",
+    "expected_rows": [
+      {
+        "order_count": 10
+      }
+    ]
+  },
+  {
+    "id": "q005",
+    "kind": "answer",
+    "question": "How many orders are completed?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE status='completed'",
+    "expected_rows": [
+      {
+        "order_count": 90
+      }
+    ]
+  },
+  {
+    "id": "q006",
+    "kind": "answer",
+    "question": "Show order counts by region",
+    "sql": "SELECT c.region,COUNT(*) AS order_count FROM orders o JOIN customers c ON c.id=o.customer_id GROUP BY c.region ORDER BY c.region",
+    "expected_rows": [
+      {
+        "region": "East",
+        "order_count": 25
+      },
+      {
+        "region": "North",
+        "order_count": 25
+      },
+      {
+        "region": "South",
+        "order_count": 25
+      },
+      {
+        "region": "West",
+        "order_count": 25
+      }
+    ]
+  },
+  {
+    "id": "q007",
+    "kind": "answer",
+    "question": "Show gross revenue by category",
+    "sql": "SELECT p.category,SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN products p ON p.id=i.product_id JOIN orders o ON o.id=i.order_id WHERE o.status='completed' GROUP BY p.category ORDER BY p.category",
+    "expected_rows": [
+      {
+        "category": "Electronics",
+        "gross_revenue": 60320.0
+      },
+      {
+        "category": "Furniture",
+        "gross_revenue": 24200.0
+      },
+      {
+        "category": "Stationery",
+        "gross_revenue": 600.0
+      }
+    ]
+  },
+  {
+    "id": "q008",
+    "kind": "answer",
+    "question": "Show the five most expensive products",
+    "sql": "SELECT name,price FROM products ORDER BY price DESC LIMIT 5",
+    "expected_rows": [
+      {
+        "name": "Laptop",
+        "price": 900.0
+      },
+      {
+        "name": "Desk",
+        "price": 200.0
+      },
+      {
+        "name": "Chair",
+        "price": 100.0
+      },
+      {
+        "name": "Headphones",
+        "price": 80.0
+      },
+      {
+        "name": "Notebook",
+        "price": 10.0
+      }
+    ]
+  },
+  {
+    "id": "q009",
+    "kind": "answer",
+    "question": "Show monthly order counts",
+    "sql": "SELECT DATE_TRUNC('month',order_date) AS month,COUNT(*) AS order_count FROM orders GROUP BY month ORDER BY month",
+    "expected_rows": [
+      {
+        "month": "2025-01-01T00:00:00.000",
+        "order_count": 11
+      },
+      {
+        "month": "2025-02-01T00:00:00.000",
+        "order_count": 9
+      },
+      {
+        "month": "2025-03-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-04-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-05-01T00:00:00.000",
+        "order_count": 11
+      },
+      {
+        "month": "2025-06-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-07-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-08-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-09-01T00:00:00.000",
+        "order_count": 10
+      },
+      {
+        "month": "2025-10-01T00:00:00.000",
+        "order_count": 9
+      }
+    ]
+  },
+  {
+    "id": "q010",
+    "kind": "answer",
+    "question": "Show products with no sales",
+    "sql": "SELECT p.name FROM products p LEFT JOIN order_items i ON p.id=i.product_id WHERE i.product_id IS NULL",
+    "expected_rows": []
+  },
+  {
+    "id": "q011",
+    "kind": "answer",
+    "question": "List customers in West",
+    "sql": "SELECT id,name FROM customers WHERE region='West' ORDER BY id",
+    "expected_rows": [
+      {
+        "id": 1,
+        "name": "Customer 1"
+      },
+      {
+        "id": 5,
+        "name": "Customer 5"
+      },
+      {
+        "id": 9,
+        "name": "Customer 9"
+      },
+      {
+        "id": 13,
+        "name": "Customer 13"
+      },
+      {
+        "id": 17,
+        "name": "Customer 17"
+      }
+    ]
+  },
+  {
+    "id": "q012",
+    "kind": "answer",
+    "question": "How many customers are in West?",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='West'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q013",
+    "kind": "answer",
+    "question": "How many orders came from West?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders o JOIN customers c ON c.id=o.customer_id WHERE c.region='West'",
+    "expected_rows": [
+      {
+        "order_count": 25
+      }
+    ]
+  },
+  {
+    "id": "q014",
+    "kind": "answer",
+    "question": "List customers in East",
+    "sql": "SELECT id,name FROM customers WHERE region='East' ORDER BY id",
+    "expected_rows": [
+      {
+        "id": 2,
+        "name": "Customer 2"
+      },
+      {
+        "id": 6,
+        "name": "Customer 6"
+      },
+      {
+        "id": 10,
+        "name": "Customer 10"
+      },
+      {
+        "id": 14,
+        "name": "Customer 14"
+      },
+      {
+        "id": 18,
+        "name": "Customer 18"
+      }
+    ]
+  },
+  {
+    "id": "q015",
+    "kind": "answer",
+    "question": "How many customers are in East?",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='East'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q016",
+    "kind": "answer",
+    "question": "How many orders came from East?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders o JOIN customers c ON c.id=o.customer_id WHERE c.region='East'",
+    "expected_rows": [
+      {
+        "order_count": 25
+      }
+    ]
+  },
+  {
+    "id": "q017",
+    "kind": "answer",
+    "question": "List customers in North",
+    "sql": "SELECT id,name FROM customers WHERE region='North' ORDER BY id",
+    "expected_rows": [
+      {
+        "id": 3,
+        "name": "Customer 3"
+      },
+      {
+        "id": 7,
+        "name": "Customer 7"
+      },
+      {
+        "id": 11,
+        "name": "Customer 11"
+      },
+      {
+        "id": 15,
+        "name": "Customer 15"
+      },
+      {
+        "id": 19,
+        "name": "Customer 19"
+      }
+    ]
+  },
+  {
+    "id": "q018",
+    "kind": "answer",
+    "question": "How many customers are in North?",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='North'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q019",
+    "kind": "answer",
+    "question": "How many orders came from North?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders o JOIN customers c ON c.id=o.customer_id WHERE c.region='North'",
+    "expected_rows": [
+      {
+        "order_count": 25
+      }
+    ]
+  },
+  {
+    "id": "q020",
+    "kind": "answer",
+    "question": "List customers in South",
+    "sql": "SELECT id,name FROM customers WHERE region='South' ORDER BY id",
+    "expected_rows": [
+      {
+        "id": 4,
+        "name": "Customer 4"
+      },
+      {
+        "id": 8,
+        "name": "Customer 8"
+      },
+      {
+        "id": 12,
+        "name": "Customer 12"
+      },
+      {
+        "id": 16,
+        "name": "Customer 16"
+      },
+      {
+        "id": 20,
+        "name": "Customer 20"
+      }
+    ]
+  },
+  {
+    "id": "q021",
+    "kind": "answer",
+    "question": "How many customers are in South?",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='South'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q022",
+    "kind": "answer",
+    "question": "How many orders came from South?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders o JOIN customers c ON c.id=o.customer_id WHERE c.region='South'",
+    "expected_rows": [
+      {
+        "order_count": 25
+      }
+    ]
+  },
+  {
+    "id": "q023",
+    "kind": "answer",
+    "question": "How many orders were placed in month 1 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=1 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 11
+      }
+    ]
+  },
+  {
+    "id": "q024",
+    "kind": "answer",
+    "question": "How many orders were placed in month 2 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=2 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 9
+      }
+    ]
+  },
+  {
+    "id": "q025",
+    "kind": "answer",
+    "question": "How many orders were placed in month 3 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=3 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 10
+      }
+    ]
+  },
+  {
+    "id": "q026",
+    "kind": "answer",
+    "question": "How many orders were placed in month 4 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=4 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 10
+      }
+    ]
+  },
+  {
+    "id": "q027",
+    "kind": "answer",
+    "question": "How many orders were placed in month 5 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=5 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 11
+      }
+    ]
+  },
+  {
+    "id": "q028",
+    "kind": "answer",
+    "question": "How many orders were placed in month 6 of 2025?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=6 AND EXTRACT(year FROM order_date)=2025",
+    "expected_rows": [
+      {
+        "order_count": 10
+      }
+    ]
+  },
+  {
+    "id": "q029",
+    "kind": "answer",
+    "question": "What is the price of Laptop?",
+    "sql": "SELECT price FROM products WHERE name='Laptop'",
+    "expected_rows": [
+      {
+        "price": 900.0
+      }
+    ]
+  },
+  {
+    "id": "q030",
+    "kind": "answer",
+    "question": "How many units of Laptop were ordered?",
+    "sql": "SELECT SUM(i.quantity) AS units FROM order_items i JOIN products p ON p.id=i.product_id WHERE p.name='Laptop'",
+    "expected_rows": [
+      {
+        "units": 81.0
+      }
+    ]
+  },
+  {
+    "id": "q031",
+    "kind": "answer",
+    "question": "What is the price of Headphones?",
+    "sql": "SELECT price FROM products WHERE name='Headphones'",
+    "expected_rows": [
+      {
+        "price": 80.0
+      }
+    ]
+  },
+  {
+    "id": "q032",
+    "kind": "answer",
+    "question": "How many units of Headphones were ordered?",
+    "sql": "SELECT SUM(i.quantity) AS units FROM order_items i JOIN products p ON p.id=i.product_id WHERE p.name='Headphones'",
+    "expected_rows": [
+      {
+        "units": 79.0
+      }
+    ]
+  },
+  {
+    "id": "q033",
+    "kind": "answer",
+    "question": "What is the price of Desk?",
+    "sql": "SELECT price FROM products WHERE name='Desk'",
+    "expected_rows": [
+      {
+        "price": 200.0
+      }
+    ]
+  },
+  {
+    "id": "q034",
+    "kind": "answer",
+    "question": "How many units of Desk were ordered?",
+    "sql": "SELECT SUM(i.quantity) AS units FROM order_items i JOIN products p ON p.id=i.product_id WHERE p.name='Desk'",
+    "expected_rows": [
+      {
+        "units": 81.0
+      }
+    ]
+  },
+  {
+    "id": "q035",
+    "kind": "answer",
+    "question": "What is the price of Chair?",
+    "sql": "SELECT price FROM products WHERE name='Chair'",
+    "expected_rows": [
+      {
+        "price": 100.0
+      }
+    ]
+  },
+  {
+    "id": "q036",
+    "kind": "answer",
+    "question": "How many units of Chair were ordered?",
+    "sql": "SELECT SUM(i.quantity) AS units FROM order_items i JOIN products p ON p.id=i.product_id WHERE p.name='Chair'",
+    "expected_rows": [
+      {
+        "units": 80.0
+      }
+    ]
+  },
+  {
+    "id": "q037",
+    "kind": "answer",
+    "question": "What is the price of Notebook?",
+    "sql": "SELECT price FROM products WHERE name='Notebook'",
+    "expected_rows": [
+      {
+        "price": 10.0
+      }
+    ]
+  },
+  {
+    "id": "q038",
+    "kind": "answer",
+    "question": "How many units of Notebook were ordered?",
+    "sql": "SELECT SUM(i.quantity) AS units FROM order_items i JOIN products p ON p.id=i.product_id WHERE p.name='Notebook'",
+    "expected_rows": [
+      {
+        "units": 79.0
+      }
+    ]
+  },
+  {
+    "id": "q039",
+    "kind": "answer",
+    "question": "How many orders did customer 1 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=1",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q040",
+    "kind": "answer",
+    "question": "How many orders did customer 2 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=2",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q041",
+    "kind": "answer",
+    "question": "How many orders did customer 3 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=3",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q042",
+    "kind": "answer",
+    "question": "How many orders did customer 4 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=4",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q043",
+    "kind": "answer",
+    "question": "How many orders did customer 5 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=5",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q044",
+    "kind": "answer",
+    "question": "How many orders did customer 6 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=6",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q045",
+    "kind": "answer",
+    "question": "How many orders did customer 7 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=7",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q046",
+    "kind": "answer",
+    "question": "How many orders did customer 8 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=8",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q047",
+    "kind": "answer",
+    "question": "How many orders did customer 9 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=9",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q048",
+    "kind": "answer",
+    "question": "How many orders did customer 10 place?",
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=10",
+    "expected_rows": [
+      {
+        "order_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q049",
+    "kind": "clarification",
+    "question": "What is revenue?"
+  },
+  {
+    "id": "q050",
+    "kind": "clarification",
+    "question": "Show revenue by month"
+  },
+  {
+    "id": "q051",
+    "kind": "unanswerable",
+    "question": "What is profit?"
+  },
+  {
+    "id": "q052",
+    "kind": "unanswerable",
+    "question": "What is the weather?"
+  },
+  {
+    "id": "q053",
+    "kind": "answer",
+    "question": "Count customers",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "expected_rows": [
+      {
+        "customer_count": 20
+      }
+    ]
+  },
+  {
+    "id": "q054",
+    "kind": "answer",
+    "question": "Total number of customers",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "expected_rows": [
+      {
+        "customer_count": 20
+      }
+    ]
+  },
+  {
+    "id": "q055",
+    "kind": "answer",
+    "question": "  HOW MANY CUSTOMERS ARE THERE?  ",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+    "expected_rows": [
+      {
+        "customer_count": 20
+      }
+    ]
+  },
+  {
+    "id": "q056",
+    "kind": "answer",
+    "question": "Count customers in West",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='West'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q057",
+    "kind": "answer",
+    "question": "Total number of customers in West",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='West'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q058",
+    "kind": "answer",
+    "question": "Count customers in East",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='East'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q059",
+    "kind": "answer",
+    "question": "Total number of customers in East",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='East'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q060",
+    "kind": "answer",
+    "question": "Count customers in North",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='North'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q061",
+    "kind": "answer",
+    "question": "Total number of customers in North",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='North'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q062",
+    "kind": "answer",
+    "question": "Count customers in South",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='South'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q063",
+    "kind": "answer",
+    "question": "Total number of customers in South",
+    "sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE region='South'",
+    "expected_rows": [
+      {
+        "customer_count": 5
+      }
+    ]
+  },
+  {
+    "id": "q064",
+    "kind": "answer",
+    "question": "Calculate gross revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "gross_revenue": 85120.0
+      }
+    ]
+  },
+  {
+    "id": "q065",
+    "kind": "answer",
+    "question": "Show total gross revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "gross_revenue": 85120.0
+      }
+    ]
+  },
+  {
+    "id": "q066",
+    "kind": "answer",
+    "question": "What is the total gross revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "gross_revenue": 85120.0
+      }
+    ]
+  },
+  {
+    "id": "q067",
+    "kind": "answer",
+    "question": "Total gross revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price) AS gross_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "gross_revenue": 85120.0
+      }
+    ]
+  },
+  {
+    "id": "q068",
+    "kind": "answer",
+    "question": "Calculate net revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price*(1-i.discount)) AS net_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "net_revenue": 83322.0
+      }
+    ]
+  },
+  {
+    "id": "q069",
+    "kind": "answer",
+    "question": "Show total net revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price*(1-i.discount)) AS net_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "net_revenue": 83322.0
+      }
+    ]
+  },
+  {
+    "id": "q070",
+    "kind": "answer",
+    "question": "What is the total net revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price*(1-i.discount)) AS net_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "net_revenue": 83322.0
+      }
+    ]
+  },
+  {
+    "id": "q071",
+    "kind": "answer",
+    "question": "Total net revenue",
+    "sql": "SELECT SUM(i.quantity*i.unit_price*(1-i.discount)) AS net_revenue FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.status='completed'",
+    "expected_rows": [
+      {
+        "net_revenue": 83322.0
+      }
+    ]
+  },
+  {
+    "id": "q072",
+    "kind": "answer",
+    "question": "How many orders were placed in month 11 of 2025?",
+    "expected_rows": [
+      {
+        "order_count": 0
+      }
+    ],
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=11 AND EXTRACT(year FROM order_date)=2025"
+  },
+  {
+    "id": "q073",
+    "kind": "answer",
+    "question": "How many orders were placed in month 12 of 2025?",
+    "expected_rows": [
+      {
+        "order_count": 0
+      }
+    ],
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=12 AND EXTRACT(year FROM order_date)=2025"
+  },
+  {
+    "id": "q074",
+    "kind": "answer",
+    "question": "How many orders were placed in month 1 of 2024?",
+    "expected_rows": [
+      {
+        "order_count": 0
+      }
+    ],
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE EXTRACT(month FROM order_date)=1 AND EXTRACT(year FROM order_date)=2024"
+  },
+  {
+    "id": "q075",
+    "kind": "answer",
+    "question": "How many orders did customer 999 place?",
+    "expected_rows": [
+      {
+        "order_count": 0
+      }
+    ],
+    "sql": "SELECT COUNT(*) AS order_count FROM orders WHERE customer_id=999"
+  },
+  {
+    "id": "q076",
+    "kind": "unanswerable",
+    "question": "How many unicorns are there?"
+  },
+  {
+    "id": "q077",
+    "kind": "unanswerable",
+    "question": "What is the price of a spaceship?"
+  },
+  {
+    "id": "q078",
+    "kind": "unanswerable",
+    "question": "Show customer salaries"
+  },
+  {
+    "id": "q079",
+    "kind": "unanswerable",
+    "question": "What is gross profit?"
+  },
+  {
+    "id": "q080",
+    "kind": "unanswerable",
+    "question": "How many orders were placed in month 13 of 2025?"
+  },
+  {
+    "id": "q081",
+    "kind": "clarification",
+    "question": "Show revenue by region"
+  }
+]
